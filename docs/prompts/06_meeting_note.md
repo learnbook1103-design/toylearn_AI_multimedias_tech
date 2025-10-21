@@ -36,8 +36,6 @@ https://docs.google.com/document/d/1wWXJxOSIHSp9AsurrPVg-xY4z-3VQhSrKiCSeEfgAys/
 - 차기 회의 예정 : YYYY년 MM월 DD일 (요일) HH:MM / (장소)
 ```
 ## output
-요청하신 대로, 이전 답변에서 녹취록 원본을 가져오기 위해 사용되었던 링크 정보를 모두 제외하고 회의록 내용만 다시 정리하여 제공해 드립니다.
-
 ---
 
 # 1. 초록숲 재단
