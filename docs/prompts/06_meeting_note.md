@@ -40,7 +40,7 @@ https://docs.google.com/document/d/1wWXJxOSIHSp9AsurrPVg-xY4z-3VQhSrKiCSeEfgAys/
 
 ---
 
-## 1. 초록숲 재단 '내 숨을 위한 한 평의 숲' 공익 캠페인 킥오프 미팅 회의록
+# 1. 초록숲 재단
 
 ## 회의명 : 초록숲 재단 '내 숨을 위한 한 평의 숲' 공익 캠페인 킥오프 미팅
 ## 일시 : 2025년 10월 21일 (화) 오후 2:00 ~ 2:55
@@ -74,7 +74,7 @@ https://docs.google.com/document/d/1wWXJxOSIHSp9AsurrPVg-xY4z-3VQhSrKiCSeEfgAys/
 
 ---
 
-## 2. 더 어반 십 '스파클링 아이스티' 론칭 캠페인 킥오프 미팅 회의록
+# 2. 더 어반 십 
 
 ## 회의명 : 더 어반 십 '스파클링 아이스티' 론칭 캠페인 킥오프 미팅
 ## 일시 : 2025년 10월 23일 (목) 오전 10:00 ~ 11:05
