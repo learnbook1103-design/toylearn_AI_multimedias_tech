@@ -47,6 +47,7 @@ https://docs.google.com/document/d/1KLU4oAAprirq1TxqV0p-rOtNxQEIuWCn5Mcd8sbXr8Y/
 ### **1. 더 어반 십 (The Urban Ship) 건**
 
 제목 **[스파클링 아이스티 론칭 캠페인] 2025년 10월 23일 논의 사항 확정 및 공식 제안서 검토 요청 건**
+
 더 어반 십 마케팅팀 박서준 팀장님께,
 바쁘신 일정에도 귀한 시간을 내어 스파클링 아이스티 론칭 캠페인 전략 및 예산에 대해 심도 깊은 논의를 진행해 주셔서 진심으로 감사드립니다.
 
@@ -83,6 +84,7 @@ https://docs.google.com/document/d/1KLU4oAAprirq1TxqV0p-rOtNxQEIuWCn5Mcd8sbXr8Y/
 ### **2. 초록숲제단 (Cho-rok-sup Foundation) 건**
 
 제목 **[초록숲제단 환경 캠페인] 2025년 10월 21일 논의 사항 확정 및 공식 제안서 검토 요청 건**
+
 초록숲제단 대외협력팀 김민지 담당자님께,
 바쁘신 일정에도 귀한 시간을 내어 2026년 환경 인식 개선 캠페인 전략 및 예산에 대해 심도 깊은 논의를 진행해 주셔서 진심으로 감사드립니다.
 
