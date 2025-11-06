@@ -1,0 +1,184 @@
+{
+  "name": "16_multimedia_images",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "binaryToPropery",
+        "binaryPropertyName": "input_image",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        144
+      ],
+      "id": "52b3dd73-77cf-42ef-a66c-fd723bde23a1",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "formTitle": "이미지 수정 ",
+        "formDescription": "이미지 수정",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "input_image",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "request",
+              "fieldType": "textarea",
+              "placeholder": "수정 요청 사안 작성",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -224,
+        144
+      ],
+      "id": "ca8d04cc-214b-4eb5-ba74-de4e9450762b",
+      "name": "On form submission2",
+      "webhookId": "2109accd-5fa8-4783-90b6-c78eda27e1ee"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-goog-api-key",
+              "value": "AIzaSyBpNjwzGtUNJ4mO83D0k4xVAvrCPYyCw2M"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"{{ $('On form submission2').item.json.request }}\"\n        },\n        {\n          \"inline_data\": {\n            \"mime_type\": \"{{ $('On form submission2').item.json.input_image.mimetype }}\",\n            \"data\": \"{{ $json.data }}\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        176,
+        144
+      ],
+      "id": "5d716848-a8a2-45ed-ba68-79a2ddb24587",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "candidates[0].content.parts[0].inlineData.data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        368,
+        144
+      ],
+      "id": "66c1dc4f-7751-47b2-a010-be77301cd201",
+      "name": "Convert to File1"
+    },
+    {
+      "parameters": {
+        "name": "=수정본) {{ $('On form submission2').item.json.input_image.filename }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1kRK_qX3Re_p1w7DESCq5aAeCAZ1alTm-",
+          "mode": "list",
+          "cachedResultName": "images",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1kRK_qX3Re_p1w7DESCq5aAeCAZ1alTm-"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        576,
+        144
+      ],
+      "id": "9cb3d189-971d-4513-8184-e77341f5515c",
+      "name": "Upload file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "1rapqtxdnyRBAkcf",
+          "name": "Google Drive account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission2": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Convert to File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File1": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9b3946c1-9178-43ac-b6a0-0834254f77e8",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fd7e967adadfbd6309b76d47ece6ef9d6ec5237317e9266c934eb3a18622d768"
+  },
+  "id": "mU4GS4Yft153jvQx",
+  "tags": []
+}
