@@ -63,7 +63,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"{{ $('On form submission2').item.json.request }}\"\n        },\n        {\n          \"inline_data\": {\n            \"mime_type\": \"{{ $('On form submission2').item.json.input_image.mimetype }}\",\n            \"data\": \"{{ $json.data }}\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+        "jsonBody": "={\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"{{ $('On form submission2').item.json.request }},대답 없이 결과값만 도출\"\n        },\n        {\n          \"inline_data\": {\n            \"mime_type\": \"{{ $('On form submission2').item.json.input_image.mimetype }}\",\n            \"data\": \"{{ $json.data }}\"\n          }\n        }\n      ]\n    }\n  ]\n}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -78,7 +78,7 @@
     {
       "parameters": {
         "operation": "toBinary",
-        "sourceProperty": "candidates[0].content.parts[1].inlineData.data",
+        "sourceProperty": "candidates[0].content.parts[0].inlineData.data",
         "options": {}
       },
       "type": "n8n-nodes-base.convertToFile",
@@ -174,7 +174,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "835b67da-21aa-416d-935a-9edf0bd81854",
+  "versionId": "1cbf3032-1a79-4322-99f3-a61f028180d1",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "fd7e967adadfbd6309b76d47ece6ef9d6ec5237317e9266c934eb3a18622d768"
