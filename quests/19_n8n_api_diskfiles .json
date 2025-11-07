@@ -1,0 +1,281 @@
+{
+  "name": "19_n8n_api_diskfiles",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        832,
+        -288
+      ],
+      "id": "496c4ddc-065c-4cee-bbed-8e02ec21639c",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1M-QY_8iKIddRrug5Kfmzt4rd-c4H02KabBR0WJhl2Wg",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet_1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1M-QY_8iKIddRrug5Kfmzt4rd-c4H02KabBR0WJhl2Wg/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1456,
+        -288
+      ],
+      "id": "e0e2c7ac-2c3c-48f6-9b49-3b499d2e4c46",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "24QykZBVkqlqYoZG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-goog-api-key",
+              "value": "AIzaSyBpNjwzGtUNJ4mO83D0k4xVAvrCPYyCw2M"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"{{ $('Loop Over Items').item.json.Narration }}\"\n        }\n      ]\n    }\n  ],\n  \"generationConfig\": {\n    \"responseModalities\": [\n      \"AUDIO\"\n    ],\n    \"speechConfig\": {\n      \"voiceConfig\": {\n        \"prebuiltVoiceConfig\": {\n          \"voiceName\": \"Kore\"\n        }\n      }\n    }\n  },\n  \"model\": \"gemini-2.5-flash-preview-tts\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1040,
+        -96
+      ],
+      "id": "d1cf01e3-8779-4c4a-a8da-c658a887b339",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "candidates[0].content.parts[0].inlineData.data",
+        "binaryPropertyName": "=out{{ $runIndex }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1248,
+        -96
+      ],
+      "id": "2eaf72ef-925d-4168-b9cc-7d0d7044e5bc",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        832,
+        -112
+      ],
+      "id": "1b7771b8-640b-4cda-94b0-28da8eb1a469",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Edit Fields').item.json.resources }}out{{ $runIndex }}.pcm",
+        "dataPropertyName": "=out{{ $runIndex }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1456,
+        -96
+      ],
+      "id": "587bfd8f-4eea-4696-bcc7-4e54e0aa69a9",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cc530749-cabf-463d-a3c8-b7016774e07c",
+              "name": "resources",
+              "value": "/home/node/resources/",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1040,
+        -288
+      ],
+      "id": "b53b5582-842f-40ea-aafa-1aeae3c7468d",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "command": "=mkdir -p {{ $json.resources }} && cd {{ $json.resources }}"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        -288
+      ],
+      "id": "ed99ece2-36f5-42c5-92a3-b2efd661b7b9",
+      "name": "Execute Command"
+    },
+    {
+      "parameters": {
+        "command": "=cd {{ $('Edit Fields').item.json.resources }} && ffmpeg -f s16le -ar 24000 -ac 1 -i out{{ $runIndex }}.pcm out{{ $runIndex }}.wav"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1632,
+        -96
+      ],
+      "id": "5763f4c5-c602-4e6f-827a-b0eddd2e7b48",
+      "name": "Execute Command1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Execute Command1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "545cf2dd-33de-4340-bd28-d8497e2a63d3",
+  "meta": {
+    "instanceId": "fd7e967adadfbd6309b76d47ece6ef9d6ec5237317e9266c934eb3a18622d768"
+  },
+  "id": "bREo63QC1Qkh8bxa",
+  "tags": []
+}
